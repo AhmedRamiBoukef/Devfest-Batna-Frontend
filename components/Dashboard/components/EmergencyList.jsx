@@ -24,7 +24,7 @@ export const EmergencyList = ({setPosition,emergencyList}) => {
         "highfast": "px-2 py-1 rounded-2xl bg-red-700 text-white",
     }
     const calcAge = (birthdate) =>{
-        var diff_ms = Date.now() - birthdate;
+        var diff_ms = Date.now() - new Date(birthdate);
         var age_dt = new Date(diff_ms); 
         return Math.abs(age_dt.getUTCFullYear() - 1970);
     }
