@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from "../../Layout";
 
 export const EmergencyList = ({setPosition,emergencyList}) => {
-    
+    const { accept }= useContext(UserContext);
+
     const protectionCivil = {
             location: {
                 type:'Point',
@@ -77,12 +79,12 @@ export const EmergencyList = ({setPosition,emergencyList}) => {
                                     <p>{protectionCivil.address}</p>
                                     <p>{protectionCivil.email}</p>
                                     <p>{protectionCivil.phone}</p>
-                                    <button className='px-4 py-2 rounded bg-[#3CB79F] text-white'>Send Message</button>
+                                    <button disabled={!accept} className={`px-4 py-2 rounded ${accept ? "bg-[#3CB79F]" : "bg-gray-500"} text-white`}>Send Message</button>
                                 </div>
                             </div>
-                            <div className="">
-                                <label htmlFor={`patientmodal${elem.id}`} className="w-full flex justify-center items-center text-3xl font-semibold px-12 py-4 rounded-lg bg-[#3CB79F] text-white">Check</label>
-                            </div>
+                            <button disabled={!accept} className="">
+                                <label htmlFor={accept && `patientmodal${elem.id}`} className={`${accept && "cursor-pointer" } w-full flex justify-center items-center text-3xl font-semibold px-12 py-4 rounded-lg ${accept ? "bg-[#3CB79F]" : "bg-gray-500"} text-white`}>Check</label>
+                            </button>
                         </div>
                     </label>
                     

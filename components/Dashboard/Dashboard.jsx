@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdNotifications } from 'react-icons/md';
 import { EmergencyList } from "./components/EmergencyList";
 import { PatientMap } from "./components/PatientMap";
@@ -417,7 +417,8 @@ const [Notification,setNotification] = useState({
       address:"batna",
       confirm : true,
   }
-})
+});
+
 
 const socket = io.connect("http://localhost:5000/");
   const [emergencyList,setEmergency] = useState(emergency)

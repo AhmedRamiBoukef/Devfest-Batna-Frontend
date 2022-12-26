@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Dashboard } from '../components/Dashboard/Dashboard'
 
-export default function Home() {
+export default function Home({accept,setAccept}) {
   return (
     <div>
       <Head>
@@ -11,7 +11,7 @@ export default function Home() {
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
       </Head>
 
-      <Dashboard/>
+      <Dashboard accept={accept} setAccept={setAccept} />
       
     </div>
   )
