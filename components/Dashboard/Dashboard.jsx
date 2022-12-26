@@ -3,6 +3,7 @@ import { MdNotifications } from 'react-icons/md';
 import { EmergencyList } from "./components/EmergencyList";
 import { PatientMap } from "./components/PatientMap";
 import io from "socket.io-client";
+import axios from "axios";
 
 export const Dashboard = () => {
   const emergency = [
@@ -418,10 +419,21 @@ const [Notification,setNotification] = useState({
       confirm : true,
   }
 });
+const [emergencyList,setEmergency] = useState([])
 
+useEffect(() => {
+    axios.get('http://10.33.30.159:5000/emergency/getNotChecked')
+    .then(response=>{
+        console.log(response.data);
+        setEmergency(response.data);
+    })
+    .catch(err=>console.log(err))
 
-const socket = io.connect("http://localhost:5000/");
-  const [emergencyList,setEmergency] = useState(emergency)
+  
+}, [])
+
+const socket = io.connect("http://10.33.30.159:5000/");
+  
   useEffect(() => {
     socket.on("receive_notification", (data) => {
       setEmergency([data,...emergencyList]);
