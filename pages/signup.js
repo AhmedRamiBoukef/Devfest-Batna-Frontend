@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import Router from 'next/router'
 import Link from "next/link";
 import axios from 'axios'
+import { UserContext } from "../components/Layout";
 
 const SingUp = () => {
   const [avl, setAvl] = useState(false);
@@ -10,6 +12,14 @@ const SingUp = () => {
   const [email,setEmail] = useState("")
   const [phone,setPhone] = useState("")
   const [password,setPassword] = useState("")
+  const {user,setUser }= useContext(UserContext);
+  useEffect(() => {
+    if (user) Router.push({
+      pathname:"/main",
+
+    })
+
+  }, [user])
   useEffect(() => {
     getLocation();
   }, []);
@@ -33,31 +43,40 @@ const SingUp = () => {
     }
   }
   const handleClick = () => {
-    axios.post("http://localhost:5000/hospital/signup", 
-        JSON.stringify({
-            name,
-            email, 
-            password, 
-            phone ,
-            location: {
-                type: 'Point',
-                coordinates: [
-                    lat,
-                    log
-                ]
-            }
-        }
-        )
+    const data={
+      name:name,
+      email:email,
+      password:password,
+      phone:phone,
+      location: {
+        type: 'Point',
+        coordinates: [
+            lat,
+            log
+        ]
+    }
+    }
+    console.log(data);
+    axios.post("http://10.33.30.159:5000/hospital/signup", 
+        data
     )
       .then(function (response) {
-        console.log(response);
+        if (response.status===200){
+          setUser(response.data.hospital);
+          localStorage.setItem('hospital',JSON.stringify(response.data.hospital));
+          localStorage.setItem('token',response.data.token);
+          Router.push({
+            pathname: '/main',
+        })
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
   return (
-    <div className="flex justify-center">
+    <>
+    {!user && <div className="flex justify-center">
       <div className="w-[8%]">
         <img
           src="doctor.webp"
@@ -74,7 +93,7 @@ const SingUp = () => {
         <h1 className="text-center lg:text-[40px] md:text-[30px]  sm:text-[20px]  text-[10px]  mb-1 font-semibold text-green-500 ">
           Sign Up
         </h1>
-        <p className="  my-[5%]   lg:text-[18px] md:text-[15px] sm:text-[12px] text-[12px]  text-center opacity-50 block ">
+        <p className="    lg:text-[18px] md:text-[15px] sm:text-[12px] text-[12px]  text-center opacity-50 block ">
           We need a few information so you can <br /> access your appointment{" "}
         </p>
         <label className="lg:text-[18px] w-72 mb-6 md:text-[15px] sm:text-[12px] text-[9px] font-medium ">
@@ -128,7 +147,7 @@ const SingUp = () => {
             className="bg-gray-50 mt-2 border-2 w-full border-gray-300 text-gray-900 lg:text-[16px] md:text-[13px] sm:text-[10px] text-[7px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block  md:p-2.5 p-1"
           />
         </label>
-        <div className="my-[7%] ">
+        <div className="mt-3 ">
           <div className="flex justify-center ">
             <button onClick={()=>handleClick()} className="border-2 bg-[#3CB79F] hover:cursor-pointer font-bold text-white lg:text-[16px] md:text-[13px] sm:text-[10px] text-[7px] rounded-lg focus:ring-blue-500 focus:border-blue-500 w-fit mt-8 px-12 py-2">
               Register
@@ -142,8 +161,8 @@ const SingUp = () => {
               </label>
             </div>
           )}
-          <div className="flex justify-center">
-            <p className="  mb-[5%] inline lg:text-[18px] md:text-[15px] sm:text-[12px] text-[9px]  text-left opacity-50 ">
+          <div className="flex mt-5 justify-center">
+            <p className="  inline lg:text-[18px] md:text-[15px] sm:text-[12px] text-[9px]  text-left opacity-50 ">
               you have an account ?{" "}
             </p>
             <Link
@@ -155,7 +174,7 @@ const SingUp = () => {
           </div>
         </div>
       </div>
-      <div className="w-[8%] mr-[5%] relative">
+      <div className="w-[8%]  relative">
         <img
           src="emerg.webp"
           alt="emerg"
@@ -167,7 +186,8 @@ const SingUp = () => {
           className="w-[100%]  h-[20%]  rounded-full mt-[100%] absolute right-[35%] top-[35%]"
         />
       </div>
-    </div>
+    </div>}
+    </>
   );
 };
 // of batna univ 2  :  lat = 35.63371299863124

@@ -1,32 +1,20 @@
 import Link from "next/link";
 
 const Landing = () => {
-    return ( 
-    <div className="flex flex-col ">
-        <nav className="flex justify-around items-center h-16 px-8 py-2 ">
-            <h3 className="text-[22px] font-bold text-green-500">3afini</h3>
-            <div className="flex justify-around">
-                <Link href="#home" className="text-[20px] font-semibold hover:text-green-500 ml-5">Home</Link>
-                <Link href="#about" className="text-[20px] font-semibold hover:text-green-500 ml-5">About</Link>
-                <Link href="#service" className="text-[20px] font-semibold hover:text-green-500 ml-5">Service</Link>
-                <Link href="#contact" className="text-[20px] font-semibold hover:text-green-500 ml-5">Contact</Link>
-            </div>
-            <div className="flex justify-around items-center">
-                <Link href="login"className="text-[18px]   mr-2 hover:bg-[#2252e1] hover:rounded-xl hover:text-[#FFF] p-2 ml-3">Sign In </Link>
-                <Link href="signup" className="text-[18px]  text-[#FFFF] rounded-xl bg-[#2252e1] p-2 hover:bg-[#081a53]">Sign Up</Link>
-            </div> 
-        </nav>
+    return (
+         <div className="flex flex-col ">
+        
         {/* h-[calc(100vh - 128px)]  */}
         <div className="flex justify-around items-center h-screen ">
-            <div className="w-[50%] ml-[10%]">
+            <div className="w-[50%] ml-16">
                 <div className="flex items-center ">
                     <h3 className="text-[34px] font-bold mr-4 ">3afini</h3>
                     <img src="icon.png" alt="icon" className="w-[10%]" />
                 </div>
-                <p className="text-[18px] pr-5 mb-[5%]">A compassionate effort to aid people out of difficult times, we are resolutely committed to provide our users with hospitals and their services at their fingertips.</p>
+                <p className="text-[18px] pr-5 mb-6">A compassionate effort to aid people out of difficult times, we are resolutely committed to provide our users with hospitals and their services at their fingertips.</p>
                 <Link href="signup" className="text-[18px]  text-[#FFFF] rounded-xl bg-[#2252e1] p-3 hover:bg-[#081a53]">Registrer</Link>
             </div>
-            <div className="w-[75%] mx-[10%] ">
+            <div className="w-[75%]  ">
                 <img src="hosp.webp" alt="hosp" className="w-full rounded-full  "/>
             </div>
         </div>
@@ -117,7 +105,7 @@ const Landing = () => {
             </footer>
             
             
-    </div> );
+    </div>);
 }
  
 export default Landing;
